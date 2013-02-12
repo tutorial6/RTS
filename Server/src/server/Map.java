@@ -36,11 +36,11 @@ public final class Map {
             fileIn.close();
         } catch(IOException i) {
             i.printStackTrace();
-            return;
+            return null;
         } catch(ClassNotFoundException c) {
-            System.out.println(.Employee class not found.);
+            System.out.println("class not found");
             c.printStackTrace();
-            return;
+            return null;
         }
         
         this.width  = cache.width;
