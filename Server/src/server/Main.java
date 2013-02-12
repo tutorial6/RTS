@@ -12,7 +12,7 @@ public class Main {
     
     public static void main(String[] args)
     {
-        Server serv = new Server();
-        serv.main();
+        Server server = new Server();
+        server.main();
     }
 }

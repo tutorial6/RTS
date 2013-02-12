@@ -19,7 +19,7 @@ public class Server {
     }
     
     public void setMap (String name) {
-        map.initMap(name);
+       // map.initMap(name);
     }
 
 }
