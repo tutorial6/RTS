@@ -6,7 +6,10 @@ import org.newdawn.slick.*;
 
 /**
  *
+ * @author Arturas
+ *  display
  * @author Modulo
+ *  movement
  */
 public class Client extends BasicGame
 {
@@ -110,7 +113,10 @@ public class Client extends BasicGame
      */
     public void main(String[] args) throws SlickException
   {
+     int maxFPS = 100;     
+     
      AppGameContainer app = new AppGameContainer(new Client());
+     app.setTargetFrameRate(maxFPS);
  
      app.setDisplayMode(800, 600, false);
      app.start();
