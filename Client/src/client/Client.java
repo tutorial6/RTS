@@ -18,8 +18,11 @@ public class Client extends BasicGame
     Image sq2 = null;
     Image transp = null;
     
-    int mx = 100;
-    int my = 300; //initial values
+    float mx = 100;
+    float my = 300; //initial values
+    float x,y;
+    float d_x, d_y;
+    double speed= 1;
 	
 	public String mouse = ""; //can't be null
  
@@ -46,22 +49,58 @@ public class Client extends BasicGame
 	  int xpos = Mouse.getX();
 	  int ypos = Mouse.getY();
 	  mouse = "x: " + xpos +" y: " + ypos;
+
+            if(Math.abs(x-mx)<=d_x){
+                mx=x;
+                d_x=0;
+            } else if ((x-mx)*d_x < 0){
+                mx=x;
+                d_x=0;
+            } else {
+                mx+=d_x;
+            }
+
+            if(Math.abs(y-my)<=d_y){
+                my=y;
+                d_y=0;
+            } else if ((y-my)*d_y < 0){
+                my=y;
+                d_y=0;
+            } else {
+                my+=d_y;             
+            }
+            
+        
+        
   }
  
   @Override
   public void render(GameContainer gc, Graphics g) throws SlickException
-  {
+  {     
      //works intuitively - draws on top
      grass.draw(0,0);
-     
+    
      if (Mouse.isButtonDown(0)) {
-	     mx = Mouse.getX();
-		 my = Math.abs(Mouse.getY()-600);
+         x = Mouse.getX();
+         y = Math.abs(Mouse.getY()-600);
+         float ratio;
+         if ((x-mx)==0&&(y-my)==0){
+          ratio=0;
+     }else {
+         ratio=(float) (speed/Math.sqrt((x-mx)*(x-mx)+(y-my)*(y-my)));
+         }
+         d_x=(x-mx)*ratio;
+         d_y=(y-my)*ratio;
      }
-     square.draw(mx, my); //drawn before transp, can get under it
-     transp.draw(400, 400);
-     g.drawString(mouse, 300, 100);
-     g.drawString("Hello World", 100, 100);
+        
+    
+           square.draw(mx, my); //drawn before transp, can get under it
+           
+           transp.draw(400, 400);
+           g.drawString(mouse, 300, 100);
+         
+     
+    // g.drawString("Hello World", 100, 100);
   }
  
     /**
