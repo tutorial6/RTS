@@ -19,7 +19,10 @@ public class Client extends BasicGame
     Animation square = null;
     Image sq1 = null;
     Image sq2 = null;
-    Image transp = null;
+    Image base = null;
+    Image gold = null;
+    Worker worker;
+    Ranged ranged;
     
     float mx = 100;
     float my = 300; //initial values
@@ -31,17 +34,21 @@ public class Client extends BasicGame
  
   public Client()
   {
-     super("rts alpha .000001");
+     super("rts alpha .000002");
   }
  
   @Override
   public void init(GameContainer gc) throws SlickException
   {
-	  grass = new Image("resources/img/grass800x600.png");
-	  sq1 = new Image("resources/img/sq120x20.png");
-	  sq2 = new Image("resources/img/sq220x20.png");
-	  square = new Animation(new Image[]{sq1,sq2}, 250);
-	  transp = new Image("resources/img/build140x80.png");
+	grass = new Image("resources/img/grass800x600.png");
+	sq1 = new Image("resources/img/sq120x20.png");
+	sq2 = new Image("resources/img/sq220x20.png");
+	square = new Animation(new Image[]{sq1,sq2}, 250);
+	base = new Image("resources/img/base50x50.png");
+        gold = new Image("resources/img/gold10x10.png");
+
+        worker = new Worker();
+        ranged = new Ranged();
   }
  
   @Override
@@ -50,7 +57,7 @@ public class Client extends BasicGame
 	  //these are mainly for testing purposes now
 	  //to check the behaviour (take a notice to Y pos)
 	  int xpos = Mouse.getX();
-	  int ypos = Mouse.getY();
+	  int ypos = Math.abs(Mouse.getY()-600);
 	  mouse = "x: " + xpos +" y: " + ypos;
 
             if(Math.abs(x-mx)<=d_x){
@@ -96,10 +103,18 @@ public class Client extends BasicGame
          d_y=(y-my)*ratio;
      }
         
-    
+           gold.draw(50,275);
+           gold.draw(50,295);
+           gold.draw(50,315);
+           
+           
+           worker.draw(300,300);
+           ranged.draw(400,300);
+           base.draw(100,275);
+     
            square.draw(mx, my); //drawn before transp, can get under it
            
-           transp.draw(400, 400);
+          
            g.drawString(mouse, 300, 100);
          
      
@@ -113,7 +128,7 @@ public class Client extends BasicGame
      */
     public void main(String[] args) throws SlickException
   {
-     int maxFPS = 100;     
+     int maxFPS = 500;     
      
      AppGameContainer app = new AppGameContainer(new Client());
      app.setTargetFrameRate(maxFPS);
